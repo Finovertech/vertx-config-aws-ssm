@@ -17,18 +17,18 @@ Maven (in your `pom.xml`):
 <dependency>
   <groupId>com.finovertech</groupId>
   <artifactId>vertx-config-aws-ssm</artifactId>
-  <version>3.5.0-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
 </dependency>
 <dependency>
   <groupId>io.vertx</groupId>
   <artifactId>vertx-config</artifactId>
-  <version>3.5.0-SNAPSHOT</version>
+  <version>3.4.2</version>
 </dependency>
 ```
 Gradle (in your `build.gradle` file):
 ```gradle
-compile 'io.vertx:vertx-config:3.5.0-SNAPSHOT'
-compile 'com.finovetech:vertx-config-aws-ssm:3.5.0-SNAPSHOT'
+compile 'io.vertx:vertx-config:3.4.2'
+compile 'com.finovetech:vertx-config-aws-ssm:0.1.0-SNAPSHOT'
 ```
 
 ### Configuring the store
@@ -36,7 +36,7 @@ compile 'com.finovetech:vertx-config-aws-ssm:3.5.0-SNAPSHOT'
 Once added to your classpath or dependencies, you need to configure the `ConfigRetriever` to use this store.
 ```java
 ConfigStoreOptions aws = new ConfigStoreOptions()
-    .setType("aws")
+    .setType("aws-ssm")
     .setConfig(new JsonObject()
         .put("path", "/yourBasePath")
         .put("recursive", false)

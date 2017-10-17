@@ -1,1 +1,1 @@
-com.finovertech.config.aws.AwsSsmConfigStoreFactory
+com.finovertech.vertx.config.aws.ssm.AwsSsmConfigStoreFactory

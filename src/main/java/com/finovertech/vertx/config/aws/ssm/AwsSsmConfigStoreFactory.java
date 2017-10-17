@@ -1,4 +1,4 @@
-package com.finovertech.config.aws;
+package com.finovertech.vertx.config.aws.ssm;
 
 import io.vertx.config.spi.ConfigStore;
 import io.vertx.config.spi.ConfigStoreFactory;
@@ -12,7 +12,7 @@ public class AwsSsmConfigStoreFactory implements ConfigStoreFactory {
 
     @Override
     public String name() {
-        return "aws";
+        return "aws-ssm";
     }
 
     @Override

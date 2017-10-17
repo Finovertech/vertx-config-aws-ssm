@@ -1,4 +1,4 @@
-package com.finovertech.config.aws;
+package com.finovertech.vertx.config.aws.ssm;
 
 import java.util.HashMap;
 import java.util.Map;
