@@ -12,7 +12,7 @@ The AWS Configuration Store is an extension to the Vert.x Configuration Retrieve
 To use the AWS Configuration, add the following dependency to the *dependencies* section of your build descriptor
 **NOTE:** (Artifact has not yet been published):
 
-Maven (in your `pom.xml`):
+Maven (in your `pom.xml`, under `<dependencies>`):
 ```xml
 <dependency>
   <groupId>com.finovertech</groupId>
@@ -25,10 +25,24 @@ Maven (in your `pom.xml`):
   <version>3.4.2</version>
 </dependency>
 ```
-Gradle (in your `build.gradle` file):
-```gradle
+if the version you are accessing is a snapshot, under `<repositories>`:
+```xml
+<repository>
+    <id>oss.sonatype.org-snapshot</id>
+    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+    <releases><enabled>false</enabled></releases>
+    <snapshots><enabled>true</enabled></snapshots>
+</repository>
+```
+
+Gradle (in your `build.gradle`, under `dependencies`):
+```groovy
 compile 'io.vertx:vertx-config:3.4.2'
 compile 'com.finovetech:vertx-config-aws-ssm:0.1.0-SNAPSHOT'
+```
+if the version you are accessing is a snapshot, under `repositories`:
+```groovy
+maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 ```
 
 ### Configuring the store

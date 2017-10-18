@@ -13,7 +13,7 @@
     </scm>
 
     <name>Vert.X Config AWS Store</name>
-    <description>Custome Vert.X Config store for AWS SSM parameter store.</description>
+    <description>Custom Vert.X Config store for AWS SSM parameter store.</description>
     <url>https://github.com/Finovertech/vertx-config-aws-ssm</url>
     <groupId>com.finovertech</groupId>
     <artifactId>vertx-config-aws-ssm</artifactId>
