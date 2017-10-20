@@ -10,6 +10,7 @@ import com.amazonaws.services.simplesystemsmanagement.model.GetParametersByPathR
 import com.amazonaws.services.simplesystemsmanagement.model.GetParametersByPathResult;
 
 import io.vertx.config.spi.ConfigStore;
+import io.vertx.config.spi.utils.JsonObjectHelper;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -103,9 +104,9 @@ public class AwsSsmConfigStore implements ConfigStore {
         final Future<Buffer> future = Future.future();
 
         if (json == null) {
-            future.complete(new JsonObject().toBuffer());
+            future.complete(Buffer.buffer());
         } else {
-            future.complete(json.toBuffer());
+            future.complete(JsonObjectHelper.toBuffer(json));
         }
 
         return future;

@@ -17,7 +17,7 @@
     <url>https://github.com/Finovertech/vertx-config-aws-ssm</url>
     <groupId>com.finovertech</groupId>
     <artifactId>vertx-config-aws-ssm</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.5-SNAPSHOT</version>
     <packaging>jar</packaging>
     <developers>
         <developer>
@@ -51,7 +51,7 @@
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-bom</artifactId>
-                <version>1.11.106</version>
+                <version>1.11.213</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -69,19 +69,15 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-ssm</artifactId>
-            <version>1.11.213</version>
         </dependency>
-
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>3.4.2</version>
         </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-config</artifactId>
-            <version>3.4.2</version>
         </dependency>
     </dependencies>
 
