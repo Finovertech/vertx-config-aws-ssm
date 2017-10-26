@@ -36,7 +36,7 @@ public class AwsSsmConfigStore implements ConfigStore {
      * @param vertx
      *            the vert.x instance
      * @param config
-     *            the configuration, used for creating the SSM client & requests.
+     *            the configuration, used for creating the SSM client and requests.
      */
     public AwsSsmConfigStore(final Vertx vertx, final JsonObject config) {
         this.vertx = vertx;

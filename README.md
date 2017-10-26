@@ -3,6 +3,8 @@ A [Vert.X (v3) Config Store](http://vertx.io/docs/vertx-config/java/) backed by 
 
 Built on top of the [vertx-config project](https://github.com/vert-x3/vertx-config/).
 
+See the [Maven Repository](https://mvnrepository.com/artifact/com.finovertech/vertx-config-aws-ssm), and the [Snapshot index](https://oss.sonatype.org/content/groups/public/com/finovertech/vertx-config-aws-ssm/).
+
 ### AWS Configuration Store
 
 The AWS Configuration Store is an extension to the Vert.x Configuration Retriever to retrieve configuration from the [AWS EC2 SSM Parameter Store](https://aws.amazon.com/ec2/systems-manager/parameter-store/).
@@ -16,7 +18,7 @@ Maven (in your `pom.xml`, under `<dependencies>`):
 <dependency>
   <groupId>com.finovertech</groupId>
   <artifactId>vertx-config-aws-ssm</artifactId>
-  <version>0.1.5-SNAPSHOT</version>
+  <version>0.1.5</version>
 </dependency>
 <dependency>
   <groupId>io.vertx</groupId>
@@ -37,7 +39,7 @@ if the version you are accessing is a snapshot, under `<repositories>`:
 Gradle (in your `build.gradle`, under `dependencies`):
 ```groovy
 compile 'io.vertx:vertx-config:3.4.0'
-compile 'com.finovetech:vertx-config-aws-ssm:0.1.5-SNAPSHOT'
+compile 'com.finovetech:vertx-config-aws-ssm:0.1.5'
 ```
 if the version you are accessing is a snapshot, under `repositories`:
 ```groovy
