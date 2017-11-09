@@ -18,12 +18,12 @@ Maven (in your `pom.xml`, under `<dependencies>`):
 <dependency>
   <groupId>com.finovertech</groupId>
   <artifactId>vertx-config-aws-ssm</artifactId>
-  <version>0.1.5</version>
+  <version>0.2.0</version>
 </dependency>
 <dependency>
   <groupId>io.vertx</groupId>
   <artifactId>vertx-config</artifactId>
-  <version>3.4.0</version>
+  <version>3.5.0</version>
 </dependency>
 ```
 if the version you are accessing is a snapshot, under `<repositories>`:
@@ -38,8 +38,8 @@ if the version you are accessing is a snapshot, under `<repositories>`:
 
 Gradle (in your `build.gradle`, under `dependencies`):
 ```groovy
-compile 'io.vertx:vertx-config:3.4.0'
-compile 'com.finovetech:vertx-config-aws-ssm:0.1.5'
+compile 'io.vertx:vertx-config:3.5.0'
+compile 'com.finovetech:vertx-config-aws-ssm:0.2.0'
 ```
 if the version you are accessing is a snapshot, under `repositories`:
 ```groovy
