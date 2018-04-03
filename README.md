@@ -39,7 +39,7 @@ if the version you are accessing is a snapshot, under `<repositories>`:
 Gradle (in your `build.gradle`, under `dependencies`):
 ```groovy
 compile 'io.vertx:vertx-config:3.5.0'
-compile 'com.finovetech:vertx-config-aws-ssm:0.2.0'
+compile 'com.finovetech:vertx-config-aws-ssm:0.3.0'
 ```
 if the version you are accessing is a snapshot, under `repositories`:
 ```groovy
@@ -56,6 +56,7 @@ ConfigStoreOptions aws = new ConfigStoreOptions()
         .put("path", "/yourBasePath")
         .put("recursive", false)
         .put("decrypt", true)
+        .put("removePathPrefix", true)
 
 ConfigRetriever retriever = ConfigRetriever.create(vertx,
     new ConfigRetrieverOptions().addStore(aws));
@@ -64,9 +65,13 @@ The configuration requires:
 
 * the `path` within the AWS parameter store to use as the base path.
 
-Optionally, you can also configure whether to get parameters from the store recursively (`recursive` boolean, `true` by default), and whether to decrypt encrypted values (`decrypt` boolean, `true` by default).
+Optionally, you can also configure whether to get parameters from the store recursively (`recursive` boolean, `true` by default), 
+and whether to decrypt encrypted values (`decrypt` boolean, `true` by default). Results from SSM will be full path by default
+(`path` is /test, then param name will be `/test/param1`). If you want the `path` directory trimmed from the result set, then
+specify `removePathPrefix` to be `true` and the path prefix will be chopped off (new name of `param1`).
 
-You will also need to configure your default AWS credentials and region. That can be done in your `pom.xml` file or your `build.gradle` file, or before you create the `ConfigRetriever` in your code.
+You will also need to configure your default AWS credentials and region. That can be done in your `pom.xml` file 
+or your `build.gradle` file, or before you create the `ConfigRetriever` in your code.
 
 ### How does it work
 
