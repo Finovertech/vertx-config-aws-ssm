@@ -49,7 +49,7 @@ public class AwsSsmConfigStoreTest {
                 .put("path", "/local")
                 .put("recursive", true)
                 .put("decrypt", false)
-                .put("parsePath", true));
+                .put("removePathPrefix", true));
 
         final Handler<AsyncResult<Buffer>> handler = context.asyncAssertSuccess(buffer -> {
             final JsonObject obj = buffer.toJsonObject();

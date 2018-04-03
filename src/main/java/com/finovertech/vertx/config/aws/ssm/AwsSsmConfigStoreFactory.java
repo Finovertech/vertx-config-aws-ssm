@@ -35,7 +35,7 @@ public class AwsSsmConfigStoreFactory implements ConfigStoreFactory {
     }
 
     private Function<Map<String, Object>, Map<String, Object>> keyMapper(final JsonObject configuration) {
-        if (!configuration.getBoolean("parsePath", false)) {
+        if (!configuration.getBoolean("removePathPrefix", false)) {
             return Function.identity();
         }
 
