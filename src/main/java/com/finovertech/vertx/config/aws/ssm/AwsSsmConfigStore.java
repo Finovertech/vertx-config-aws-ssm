@@ -3,9 +3,9 @@ package com.finovertech.vertx.config.aws.ssm;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
-import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClient;
-import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
+import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagement;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParametersByPathRequest;
 import com.amazonaws.services.simplesystemsmanagement.model.GetParametersByPathResult;
 
@@ -24,26 +24,28 @@ import io.vertx.core.json.JsonObject;
  */
 public class AwsSsmConfigStore implements ConfigStore {
 
-    private final String path;
-    private final boolean decrypt;
-    private final boolean recursive;
+    private final Function<String, GetParametersByPathRequest> requestBuilder;
     private final Vertx vertx;
-    private final AWSSimpleSystemsManagementClient ssmClient;
+    private final AWSSimpleSystemsManagement ssmClient;
+    private final Function<Map<String, Object>, Map<String, Object>> entryMapper;
 
     /**
      * creates an instance of {@link AwsSsmConfigStore}.
      *
      * @param vertx
      *            the vert.x instance
-     * @param config
-     *            the configuration, used for creating the SSM client and requests.
+     * @param builder
+     *            A request builder function to invoke
+     * @param client
+     *            An AWS SSM Client instance to use.
      */
-    public AwsSsmConfigStore(final Vertx vertx, final JsonObject config) {
-        this.vertx = vertx;
-        this.path = Objects.requireNonNull(config.getString("path"), "The path must be set.");
-        this.decrypt = config.getBoolean("decrypt", true);
-        this.recursive = config.getBoolean("recursive", true);
-        ssmClient = (AWSSimpleSystemsManagementClient) AWSSimpleSystemsManagementClientBuilder.defaultClient();
+    public AwsSsmConfigStore(final Vertx vertx, final AWSSimpleSystemsManagement client,
+        final Function<String, GetParametersByPathRequest> builder,
+        final Function<Map<String, Object>, Map<String, Object>> entryMapper) {
+        this.vertx = Objects.requireNonNull(vertx, "Vert.x instance required");
+        this.requestBuilder = Objects.requireNonNull(builder, "Request builder method required.");
+        this.ssmClient = Objects.requireNonNull(client, "SSM Client required");
+        this.entryMapper = Objects.requireNonNull(entryMapper, "Key mapper is required");
     }
 
     @Override
@@ -58,7 +60,7 @@ public class AwsSsmConfigStore implements ConfigStore {
         vertx.executeBlocking(
             future -> {
                 try {
-                    final Map<String, Object> map = getParamsFromAwsAsMap();
+                    final Map<String, Object> map = entryMapper.apply(getParamsFromAwsAsMap());
                     future.complete(new JsonObject(map));
                 } catch (final Throwable thr) {
                     future.fail(thr);
@@ -69,7 +71,7 @@ public class AwsSsmConfigStore implements ConfigStore {
     }
 
     private Map<String, Object> getParamsFromAwsAsMap() {
-        final Map returnMap = new HashMap<String, Object>();
+        final Map<String, Object> returnMap = new HashMap<>();
 
         GetParametersByPathResult response = makeAwsRequest(null);
         addParamsToMap(returnMap, response);
@@ -84,19 +86,13 @@ public class AwsSsmConfigStore implements ConfigStore {
         return returnMap;
     }
 
-    private void addParamsToMap(final Map returnMap, final GetParametersByPathResult response) {
+    private void addParamsToMap(final Map<String, Object> returnMap, final GetParametersByPathResult response) {
         response.getParameters()
             .forEach(p -> returnMap.put(p.getName(), p.getValue()));
     }
 
     private GetParametersByPathResult makeAwsRequest(final String nextToken) {
-        GetParametersByPathRequest request = new GetParametersByPathRequest()
-            .withPath(path)
-            .withWithDecryption(decrypt)
-            .withRecursive(recursive);
-        if (nextToken != null) {
-            request = request.withNextToken(nextToken);
-        }
+        final GetParametersByPathRequest request = Objects.requireNonNull(requestBuilder.apply(nextToken));
         return ssmClient.getParametersByPath(request);
     }
 
